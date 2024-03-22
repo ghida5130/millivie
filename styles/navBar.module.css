@@ -1,0 +1,45 @@
+.navBar {
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    height: 45px;
+    background-color: rgb(41, 41, 41, 0.6);
+    padding-top: 11px;
+    justify-content: center;
+    transition: height 0.3s ease-in-out, background-color 1.5s;
+    z-index: 9999;
+}
+.navBarOver {
+    height: 400px;
+    background-color: rgb(100, 100, 100);
+    transition: height 0.3s ease-in-out, background-color 0.3s;
+    z-index: 9999;
+}
+.navBarIcon {
+    color: rgb(199, 199, 199);
+    font-size: 14px;
+    margin: 20px;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.5s;
+}
+.navBarIcon:hover {
+    color: white;
+}
+.sprite {
+    position: fixed;
+    width: 100%;
+    height: 5px;
+    top: 50px;
+    background: linear-gradient(
+        45deg,
+        black 25%,
+        white 0,
+        white 50%,
+        black 0,
+        black 75%,
+        white 0
+    );
+    background-size: 30px 30px;
+    border: black 1px solid;
+}

@@ -1,0 +1,112 @@
+.wrap {
+    width: 80vw;
+    margin: 0 auto;
+    transition: all 0.5s ease-in-out;
+}
+.header {
+    display: flex;
+    justify-content: center;
+}
+.topMovieRankWrap {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    width: 90%;
+    height: 500px;
+}
+.moviePosterWrap {
+    width: 60%;
+    height: 500px;
+}
+.topMovieTitle {
+    font-weight: 500;
+    color: rgb(211, 211, 211);
+}
+.movieInfoWrap {
+    display: flex;
+    height: 100%;
+    width: 40%;
+}
+.movieInfoArea2 {
+    padding: 20px;
+    margin-left: 10px;
+    background-color: rgb(17, 17, 17);
+    height: 100%;
+    width: 50%;
+}
+.ratingArea {
+    display: flex;
+    width: 100%;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.reviewBoxArea {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 420px;
+}
+.reviewBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 7px;
+    padding-bottom: 20px;
+    width: 100%;
+    height: 25%;
+    border-top: 1px solid rgb(50, 50, 50);
+    /* background-color: rgb(10, 10, 10); */
+    /* border: 2px solid grey; */
+    /* border-radius: 20px; */
+}
+.reviewTextBox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    height: 60%;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.reviewRatingBox {
+    display: flex;
+    height: 20%;
+    width: 100%;
+    align-items: center;
+}
+.movieInfoArea3 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    height: auto;
+    width: 50%;
+    justify-content: space-between;
+}
+
+/* container */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.newAndNotableWrap {
+    width: 90%;
+    margin-top: 70px;
+}
+.newAndNotableBoxArea {
+    display: flex;
+    width: 100%;
+    height: 300px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* footer */
+
+.footer {
+    height: 500px;
+}
