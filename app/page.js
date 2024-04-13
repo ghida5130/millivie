@@ -3,52 +3,8 @@
 import Image from "next/image";
 import styles from "/styles/home.module.css";
 import { useEffect, useState } from "react";
+import TopRated from "./TopRated.js";
 
-const posterImage = {
-    display: "flex",
-    flexDirection: "column",
-    background: `linear-gradient(
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0) 60%,
-        rgba(0, 0, 0, 0.9) 100%,black),
-        url('/exhuma.webp')`,
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    height: "100%",
-    width: "100%",
-    padding: "20px",
-    justifyContent: "space-between",
-};
-const firstMovieVideo = {
-    display: "flex",
-    flexDirection: "column",
-    background: `linear-gradient(
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0) 60%,
-        rgba(0, 0, 0, 0.9) 100%,black),
-        url('/firstMovieVideo.png')`,
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    height: "49%",
-    width: "100%",
-    padding: "20px",
-    justifyContent: "end",
-};
-const secondMovieVideo = {
-    display: "flex",
-    flexDirection: "column",
-    background: `linear-gradient(
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0) 60%,
-        rgba(0, 0, 0, 0.9) 100%,black),
-        url('/secondMovieVideo.png')`,
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    height: "49%",
-    width: "100%",
-    padding: "20px",
-    justifyContent: "end",
-};
 const newAndNotableBox = {
     display: "flex",
     flexDirection: "column",
@@ -67,11 +23,14 @@ const newAndNotableBox = {
 
 export default function Home() {
     let nowMovieRank = 1;
-    const [userData, setUserData] = useState(null);
+    const [topMovieData, settopMovieData] = useState();
+    const [topMovieNowNum, setTopMovieNowNum] = useState(0);
+    const [fadeTest, setFadeTest] = useState();
+    const [posterSize, setPosterSize] = useState("110%");
 
     useEffect(() => {
         fetch(
-            "https://api.themoviedb.org/3/movie/838209?api_key=5f03a67b305fd473b7d178b0612c734e&language=ko-KR",
+            "https://api.themoviedb.org/3/movie/popular?api_key=5f03a67b305fd473b7d178b0612c734e&language=ko-KR",
             {
                 method: "GET",
             }
@@ -85,25 +44,87 @@ export default function Home() {
             })
             .then((result) => {
                 console.log("Success");
-                setUserData(result);
+                settopMovieData(result);
             })
             .catch((error) => {
                 console.log("Network/ajax Error");
             });
     }, []);
 
+    const posterImage = {
+        display: "flex",
+        flexDirection: "column",
+        background: `linear-gradient(
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0) 50%,
+            rgba(0, 0, 0, 0.9) 100%,black),
+            url("https://image.tmdb.org/t/p/w1280${
+                topMovieData
+                    ? topMovieData.results[topMovieNowNum].backdrop_path
+                    : ""
+            }")
+            center center/auto ${posterSize}`,
+        height: "100%",
+        width: "100%",
+        padding: "20px",
+        justifyContent: "space-between",
+        transition: "all 0.5s ease",
+    };
+    const firstMovieVideo = {
+        display: "flex",
+        flexDirection: "column",
+        background: `linear-gradient(
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0) 60%,
+            rgba(0, 0, 0, 0.9) 100%,black),
+            url('/firstMovieVideo.png')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        height: "49%",
+        width: "100%",
+        padding: "20px",
+        justifyContent: "end",
+    };
+    const secondMovieVideo = {
+        display: "flex",
+        flexDirection: "column",
+        background: `linear-gradient(
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0) 60%,
+            rgba(0, 0, 0, 0.9) 100%,black),
+            url('/secondMovieVideo.png')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        height: "49%",
+        width: "100%",
+        padding: "20px",
+        justifyContent: "end",
+    };
+
     return (
         <div className={styles.wrap}>
             <div className={styles.header}>
                 <button
                     onClick={() => {
-                        console.log("A");
+                        setFadeTest(styles.fadeTextActive);
+                        setTimeout(() => {
+                            if (topMovieNowNum == 0) {
+                                setTopMovieNowNum(4);
+                            } else {
+                                var changeNum = topMovieNowNum - 1;
+                                setTopMovieNowNum(changeNum);
+                            }
+                            setFadeTest();
+                        }, 400);
                     }}
                 >
-                    <img
+                    <Image
                         src="/arrow.svg"
+                        width="70"
+                        height="70"
+                        alt=""
                         style={{ transform: "scaleX(-1)" }}
-                    ></img>
+                    ></Image>
                 </button>
                 <div className={styles.topMovieRankWrap}>
                     <div
@@ -112,7 +133,16 @@ export default function Home() {
                             console.log("btn test");
                         }}
                     >
-                        <div style={posterImage}>
+                        <div
+                            onMouseOver={() => {
+                                setPosterSize("120%");
+                            }}
+                            onMouseOut={() => {
+                                setPosterSize("110%");
+                            }}
+                            style={posterImage}
+                            className={`${styles.fadeText} ${fadeTest}`}
+                        >
                             <div style={{ textAlign: "end" }}>
                                 <Image
                                     src="/medal1.svg"
@@ -125,10 +155,18 @@ export default function Home() {
 
                             <div>
                                 <div style={{ fontSize: "50px" }}>
-                                    {userData ? userData.original_title : ""}
+                                    {topMovieData
+                                        ? topMovieData.results[topMovieNowNum]
+                                              .title
+                                        : ""}
                                 </div>
 
-                                <div style={{ fontSize: "18px" }}>Exhuma</div>
+                                <div style={{ fontSize: "18px" }}>
+                                    {topMovieData
+                                        ? topMovieData.results[topMovieNowNum]
+                                              .original_title
+                                        : ""}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -184,15 +222,30 @@ export default function Home() {
                 </div>
                 <button
                     onClick={() => {
-                        console.log(userData.adult);
+                        setFadeTest(styles.fadeTextActive);
+                        setTimeout(() => {
+                            if (topMovieNowNum == 4) {
+                                setTopMovieNowNum(0);
+                            } else {
+                                var changeNum = topMovieNowNum + 1;
+                                setTopMovieNowNum(changeNum);
+                            }
+                            setFadeTest();
+                        }, 400);
                     }}
                 >
-                    <img src="/arrow.svg"></img>
+                    <Image
+                        src="/arrow.svg"
+                        width="70"
+                        height="70"
+                        alt=""
+                    ></Image>
                 </button>
             </div>
             <div className={styles.container}>
+                <TopRated />
                 <div className={styles.newAndNotableWrap}>
-                    <h1 style={{ fontWeight: "800" }}>New and Notable</h1>
+                    <h1 style={{ fontWeight: "700" }}>트렌드</h1>
                     <div className={styles.newAndNotableBoxArea}>
                         <NewAndNotableBox movieName={"영화명1"} />
                         <NewAndNotableBox movieName={"영화명1"} />
@@ -203,7 +256,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className={styles.newAndNotableWrap}>
-                    <h1 style={{ fontWeight: "800" }}>Featured Today</h1>
+                    <h1 style={{ fontWeight: "700" }}>내 시청 리스트</h1>
                     <div className={styles.newAndNotableBoxArea}>
                         <NewAndNotableBox movieName={"영화명1"} />
                         <NewAndNotableBox />

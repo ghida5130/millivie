@@ -95,7 +95,7 @@
 }
 .newAndNotableWrap {
     width: 90%;
-    margin-top: 70px;
+    margin-top: 80px;
 }
 .newAndNotableBoxArea {
     display: flex;
@@ -109,4 +109,12 @@
 
 .footer {
     height: 500px;
+}
+
+.fadeText {
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
+}
+.fadeTextActive {
+    opacity: 0;
 }

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 
 import styles from "/styles/navBar.module.css";
 
 export default function NavBar() {
-    let [navBarOver, setNavBarOver] = useState(false);
+    const [navBarOver, setNavBarOver] = useState(false);
 
     return (
         <div>
@@ -17,12 +18,24 @@ export default function NavBar() {
                     setNavBarOver(false);
                 }}
             >
-                <NavBarIcon
-                    link="/"
-                    name="Home"
-                    select="home"
-                    setNavBarOver={setNavBarOver}
-                ></NavBarIcon>
+                <div>
+                    <a
+                        className={styles.millivieIcon}
+                        href="/"
+                        onMouseOver={() => {
+                            setNavBarOver(false);
+                        }}
+                    >
+                        <Image
+                            src="/millivieIcon.svg"
+                            width="20"
+                            height="20"
+                            alt=""
+                        ></Image>
+                        Millivie
+                    </a>
+                </div>
+
                 <NavBarIcon
                     link="/list"
                     name="영화"
@@ -47,8 +60,30 @@ export default function NavBar() {
                     select="detail"
                     setNavBarOver={setNavBarOver}
                 ></NavBarIcon>
+                <form
+                    className={styles.searchFormArea}
+                    action="/search"
+                    method="get"
+                >
+                    <input
+                        onMouseOver={() => {
+                            setNavBarOver(false);
+                        }}
+                        className={styles.searchTextArea}
+                        name="query"
+                        type="text"
+                        placeholder="영화 검색"
+                    ></input>
+                    <button type="submit" style={{ height: "30px" }}>
+                        <Image
+                            src="/searchIcon.svg"
+                            width="20"
+                            height="20"
+                            alt=""
+                        ></Image>
+                    </button>
+                </form>
             </div>
-            {/* <div className="navBarBackground navBarDisplayBlock">test</div> */}
         </div>
     );
 }
