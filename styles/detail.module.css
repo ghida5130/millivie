@@ -1,21 +1,29 @@
 .wrapBefore {
     opacity: 0;
-    transition: opacity 0.5s ease-in;
+    margin-top: -10px;
+    transition: all 0.2s ease-out;
 }
 .wrapAfter {
     opacity: 1;
+    margin-top: 0px;
 }
 
 .header {
+    width: 1500px;
+    margin: 0 auto;
+}
+.container {
+    width: 1500px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
 }
 
 .topMovieRankWrap {
+    width: 90%;
     display: flex;
-    align-items: center;
+    margin: 0 auto;
     margin-top: 10px;
-    width: 75vw;
     height: 500px;
 }
 
@@ -35,8 +43,6 @@
 }
 
 .movieInfoArea1 {
-    display: flex;
-    flex-direction: column;
     padding: 20px;
     margin-left: 10px;
     background-color: rgb(17, 17, 17);
@@ -46,9 +52,8 @@
 .movieDetailArea {
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 100%;
-    margin-top: 10px;
+    margin: 10px 0 4px 0;
     text-align: center;
 }
 .movieDetailArea h2,
@@ -68,12 +73,10 @@
 .movieInfoArea3 {
     display: flex;
     flex-direction: column;
-    padding: 20px;
     margin-left: 10px;
-    background-color: rgb(17, 17, 17);
     height: auto;
     width: 33.33%;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .movieDetailExplain {
     height: 107px;
@@ -82,22 +85,183 @@
     overflow: hidden;
 }
 .movieDetailExplainExtensionButton {
-    font-weight: 500;
-    font-size: 20px;
-    margin: 5px auto 20px auto;
+    margin: 7px auto;
     height: 25px;
     width: 25px;
     border: 2px solid rgb(80, 80, 80);
     border-radius: 30px;
 }
 .reservationButton {
-    font-weight: 600;
-    font-size: 12px;
-    background-color: rgb(37, 37, 37);
+    width: 140px;
     margin: auto;
-    text-align: center;
-    height: 32px;
-    width: 100px;
-    border: 2px solid rgb(80, 80, 80);
+    padding: 12px 24px;
+    background-color: rgb(43, 43, 43);
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.posterImage {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    /* justify-content: flex-end; */
+}
+.likeBtn {
+    align-self: flex-end;
+    position: relative;
+    margin-bottom: auto;
+    width: 60px;
+    padding: 5px;
+    background: rgb(255, 255, 255, 0.2);
+    border: solid 1px grey;
     border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+}
+.ratingArea {
+    display: flex;
+    width: 100%;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.reviewBoxArea {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    height: 370px;
+}
+.reviewBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 7px;
+    width: 100%;
+    height: 25%;
+    border-bottom: 1px solid rgb(50, 50, 50);
+}
+.reviewTextBox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.reviewRatingBox {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.emptyReviewBox {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.emptyReviewBox p {
+    margin-bottom: 30px;
+}
+.reviewButton {
+    margin: auto;
+    width: 150px;
+    padding: 12px 24px;
+    background-color: rgb(43, 43, 43);
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 7px;
+}
+.movieVideoMore {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    height: 8%;
+    background-color: rgb(17, 17, 17);
+}
+
+/* Modal */
+.modalBackground {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    z-index: 9998;
+}
+.modalWrap {
+    position: relative;
+    background-color: rgb(17, 17, 17);
+    width: 500px;
+    height: 400px;
+    box-shadow: 0px 0px 30px 10px #000000;
+}
+.modalCloseButton {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 30px;
+}
+.modalArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+}
+.reviewContentArea {
+    /* background-color: rgb(0, 0, 0); */
+    color: white;
+    border: 2px solid rgb(109, 109, 109);
+    border-radius: 10px;
+    height: 120px;
+    width: 400px;
+    outline: none;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: auto;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+}
+.reviewContentArea:focus {
+    background-color: rgb(0, 0, 0);
+    border: 2px solid rgb(255, 255, 255);
+    /* transform: scale(1.01); */
+}
+.buttonArea {
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+    margin-top: 15px;
+}
+.buttonArea button {
+    justify-content: center;
+}
+.starRatingArea {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.EmptyRelatedVideo {
+    display: flex;
+    height: 44%;
+    width: 100%;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    background: rgb(17, 17, 17);
 }

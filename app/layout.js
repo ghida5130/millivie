@@ -1,29 +1,27 @@
-"use client";
 import "./globals.css";
 import NavBar from "./navBar";
-import { Provider } from "react-redux";
-import store from "../app/store.js";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../pages/api/auth/[...nextauth]";
+import Footer from "./components/footer";
+// import ReduxProvider from "../redux/provider";
+// import { Provider } from "react-redux";
+// import store from "../app/store.js";
 
-export default function RootLayout({ children }) {
+export const metadata = {
+    title: "밀리비",
+    description: "안심하고 보는 영화",
+};
+
+export default async function RootLayout({ children }) {
+    let session = await getServerSession(authOptions);
     return (
         <html lang="en">
             <body>
-                <div className="wrapper">
-                    {/* <div className="blurText"></div> */}
-                    <div className="blurText"></div>
-                    <NavBar></NavBar>
-                </div>
+                <NavBar session={session} />
                 <div className="htmlTopMargin"></div>
-                <Provider store={store}>{children}</Provider>
+                {children}
+                <Footer />
             </body>
         </html>
-    );
-}
-
-function NavBarIcon({ link, func }) {
-    return (
-        <a className="navBarIcon" href={link}>
-            {func}
-        </a>
     );
 }

@@ -1,0 +1,29 @@
+.wrap {
+    background: #e0e0e0;
+    height: 700px;
+    width: 1000px;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.icon {
+    height: 200px;
+    width: 200px;
+    border-radius: 30px;
+    background: #e0e0e0;
+    box-shadow: 15px 15px 30px #aaaaaa, -15px -15px 30px #ffffff, inset 34px 34px 68px #e0e0e0,
+        inset -34px -34px 68px #e0e0e0;
+    transition: all 0.5s ease-in-out;
+    opacity: 1;
+}
+.icon:hover {
+    box-shadow: 34px 34px 68px #898989, -34px -34px 68px #ffffff, inset 34px 34px 68px #e0e0e0,
+        inset -34px -34px 68px #e0e0e0;
+    transition: all 0.5s ease-in-out;
+}
+.icon.clicked {
+    box-shadow: 34px 34px 68px #e0e0e0, -34px -34px 68px #e0e0e0, inset 9px 9px 18px #9d9d9d,
+        inset -9px -9px 18px #ffffff;
+    transition: all 0.5s ease-in-out;
+}

@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import styles from "/styles/search.module.css";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
+import Loading from "../loading";
 
 function Search() {
     const searchParams = useSearchParams();
@@ -10,26 +12,30 @@ function Search() {
     const [movies, setMovies] = useState([]);
     const [searchPage, setSearchPage] = useState(1);
     const loader = useRef(null);
-    const [moviesStateChanged, setMoviesStateChanged] = useState(false);
-
-    const searchResultsMovies = {
-        backgroundImage: `linear-gradient(to right, skyblue, rgb(0, 101, 196)),
-        radial-gradient(circle, white, black)`,
-        width: "15%",
-        height: "300px",
-        marginTop: "30px",
-    };
+    const [nowPage, setNowPage] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (getItem) {
             fetch(
                 `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
                     getItem
-                )}&include_adult=false&language=ko-KR&page=${searchPage}&api_key=5f03a67b305fd473b7d178b0612c734e`
+                )}&include_adult=false&language=ko-KR&page=${searchPage}&api_key=${
+                    process.env.NEXT_PUBLIC_TMDB_API_KEY
+                }`
             )
                 .then((response) => response.json())
                 .then((data) => {
-                    setMovies((prevData) => [...prevData, ...data.results]);
+                    if (movies.length > 0) {
+                        setMovies((prevData) => [...prevData, ...data.results]);
+                        setNowPage((prev) => prev + 1);
+                    } else {
+                        setMovies(data.results);
+                        setNowPage(1);
+                    }
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         }
     }, [searchPage]);
@@ -37,27 +43,20 @@ function Search() {
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
-                if (entries[0].isIntersecting) {
-                    // setSearchPage(searchPage + 1);
-                    setSearchPage((prevPage) => prevPage + 1);
+                if (entries[0].isIntersecting && nowPage != 0) {
+                    setSearchPage(searchPage + 1);
                 }
             },
             { threshold: 1 }
         );
-        if (loader.current) {
-            observer.observe(loader.current);
-        }
+        if (loader.current) observer.observe(loader.current);
 
-        // Cleanup observer on component unmount
         return () => observer.disconnect();
-    }, [moviesStateChanged]);
+    }, [nowPage]);
 
-    useEffect(() => {
-        if (!moviesStateChanged) {
-            setMoviesStateChanged(true);
-        }
-    }, [movies]);
-
+    if (loading) {
+        return <Loading />;
+    }
     return (
         <>
             <div className={styles.wrap}>
@@ -68,13 +67,10 @@ function Search() {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.searchResultsWrap}>
-                        <div
-                            className={styles.searchResultsArea}
-                            style={{ width: "72vw" }}
-                        >
+                        <div className={styles.searchResultsArea} style={{ width: "72vw" }}>
                             {movies.length > 0 ? (
                                 movies.map((a, i) => (
-                                    <div
+                                    <Link
                                         style={{
                                             background: `linear-gradient(
                                         rgba(0, 0, 0, 0.2) 0%,
@@ -84,15 +80,19 @@ function Search() {
                                         center top/cover`,
                                             display: "flex",
                                             flexDirection: "column",
+                                            width: "200px",
                                             height: "300px",
                                             padding: "10px",
                                             justifyContent: "end",
                                             margin: "15px 11px",
                                         }}
-                                    ></div>
+                                        href={`/detail/${a.id}`}
+                                    >
+                                        {a.title}
+                                    </Link>
                                 ))
                             ) : (
-                                <div>Loading</div>
+                                <div>검색결과가 없습니다.</div>
                             )}
                         </div>
                     </div>

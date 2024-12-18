@@ -1,0 +1,20 @@
+/* styles.css */
+.messageBox {
+    position: fixed;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%);
+    background: #dfdfdf;
+    color: #000000;
+    padding: 18px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.fadeIn {
+    top: 70px;
+    opacity: 1;
+}
