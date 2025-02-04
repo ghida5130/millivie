@@ -80,7 +80,7 @@ export default function MainPageRecentlyViewedArea({ name }) {
                         );
                     })
                 ) : (
-                    <p>test</p>
+                    <p>최근 조회한 영화가 없습니다.</p>
                 )}
             </div>
         </div>

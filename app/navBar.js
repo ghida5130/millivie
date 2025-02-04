@@ -6,6 +6,7 @@ import Image from "next/image";
 import styles from "/styles/navBar.module.css";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import CustomAlert from "./components/customAlert";
 
 export default function NavBar({ session }) {
     const [navBarOver, setNavBarOver] = useState(false);
@@ -13,6 +14,8 @@ export default function NavBar({ session }) {
     const [innerOpacity, setInnerOpacity] = useState(1);
     const [userPopupActive, setUserPopupActive] = useState(false);
     const [searchPlaceHolder, setSearchPlaceHolder] = useState("영화 검색");
+    const [customAlert, setCustomAlert] = useState(false);
+    const [customAlertMessage, setCustomAlertMessage] = useState("");
     const divRef = useRef(null);
     const buttonRef = useRef(null);
 
@@ -80,7 +83,19 @@ export default function NavBar({ session }) {
                         ></NavBarIcon>
                     </div>
                     <div className={styles.searchArea}>
-                        <form className={styles.searchFormArea} action="/search" method="get">
+                        <form
+                            className={styles.searchFormArea}
+                            action="/search"
+                            method="get"
+                            onSubmit={(e) => {
+                                const inputValue = e.target.query.value.trim();
+                                if (!inputValue) {
+                                    e.preventDefault();
+                                    setCustomAlertMessage("검색어를 입력해주세요");
+                                    setCustomAlert(true);
+                                }
+                            }}
+                        >
                             <input
                                 onMouseOver={() => {
                                     setNavBarOver(false);
@@ -140,6 +155,15 @@ export default function NavBar({ session }) {
                     </div>
                 </div>
             </div>
+            {customAlert && (
+                <CustomAlert
+                    message={customAlertMessage}
+                    duration={2000}
+                    onClose={() => {
+                        setCustomAlert(false);
+                    }}
+                />
+            )}
         </div>
     );
 }
