@@ -1,7 +1,7 @@
 # Millivie
 
 <div align="center">
-<img width="350" alt="millivie logo" src="https://raw.githubusercontent.com/ghida5130/millivie/refs/heads/main/public/millivie_logo.png?token=GHSAT0AAAAAAC6OHZQOGPKXJGNMLXMPYMBEZ5HOBCA">
+<img width="350" alt="millivie logo" src="./public/millivie_logo.png">
 
 <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white">
 <img src="https://img.shields.io/badge/NextJS-000000?style=for-the-badge&logo=nextdotjs&logoColor=white">
