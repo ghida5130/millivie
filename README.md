@@ -29,12 +29,12 @@
 
 ### 메인 화면
 
-<img width="350" alt="millivie logo" src="./public/mdImage/1.png">
+<img width="500" alt="millivie logo" src="./public/mdImage/1.png">
 
 ### 영화 상세 정보
 
-<img width="350" alt="millivie logo" src="./public/mdImage/2.png">
+<img width="500" alt="millivie logo" src="./public/mdImage/2.png">
 
 ### 로그인 화면
 
-<img width="350" alt="millivie logo" src="./public/mdImage/3.png">
+<img width="500" alt="millivie logo" src="./public/mdImage/3.png">
