@@ -3,6 +3,16 @@
     margin: 0 auto;
     transition: all 0.5s ease-in-out;
 }
+.wrapBefore {
+    width: 90%;
+    opacity: 0;
+    margin-top: 70px;
+    transition: all 0.2s ease-out;
+}
+.wrapAfter {
+    opacity: 1;
+    margin-top: 80px;
+}
 .header {
     display: flex;
     justify-content: center;
@@ -118,10 +128,7 @@
     flex-direction: column;
     align-items: center;
 }
-.newAndNotableWrap {
-    width: 90%;
-    margin-top: 80px;
-}
+
 .newAndNotableBoxArea {
     display: grid;
     width: 100%;
@@ -135,6 +142,12 @@
 
     margin-top: 20px;
 }
+
+.newAndNotableWrap {
+    width: 90%;
+    margin-top: 80px;
+}
+
 .EmptyArea {
     display: flex;
     width: 100%;

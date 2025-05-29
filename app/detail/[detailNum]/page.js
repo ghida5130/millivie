@@ -6,9 +6,40 @@ import styles from "/styles/detail.module.css";
 
 // components
 import DetailPageRecommendArea from "../../components/detailPageRecommendArea.js";
+import { safeFetch } from "../../../util/safeFetch.js";
 
 export default async function Detail(props) {
     let session = await getServerSession(authOptions);
+
+    // movie_id를 기준으로 영화 상세 정보 fetch
+    let detailData = await safeFetch(
+        "movie detail data",
+        `https://api.themoviedb.org/3/movie/${props.params.detailNum}?api_key=${process.env.TMDB_API_KEY}&language=ko-KR`,
+        {
+            method: "GET",
+            headers: { accept: "application/json" },
+        }
+    );
+
+    // movie_id를 기준으로 영화 관련영상 정보 fetch
+    let relatedVideoData = await safeFetch(
+        "related video data",
+        `https://api.themoviedb.org/3/movie/${props.params.detailNum}/videos?api_key=${process.env.TMDB_API_KEY}&language=ko-KR`,
+        {
+            method: "GET",
+            headers: { accept: "application/json" },
+        }
+    );
+
+    // movie_id를 기준으로 추천영화 fetch
+    let recommendData = await safeFetch(
+        "recommend data",
+        `https://api.themoviedb.org/3/movie/${props.params.detailNum}/recommendations?api_key=${process.env.TMDB_API_KEY}&language=ko-KR`,
+        {
+            method: "GET",
+            headers: { accept: "application/json" },
+        }
+    );
 
     // movie_id로 현재 영화 리뷰데이터 가져오기
     const db = (await connectDB).db("millivie");
@@ -31,6 +62,8 @@ export default async function Detail(props) {
         isFavorite = !!isFavorite;
     } else isFavorite = false;
 
+    console.log(relatedVideoData.data);
+
     reviewData = JSON.stringify(reviewData);
     session = JSON.stringify(session);
     avgRatingData = JSON.stringify(avgRatingData);
@@ -38,18 +71,16 @@ export default async function Detail(props) {
     return (
         <div>
             <MovieInfo
-                props={props}
+                detailNum={props.params.detailNum}
                 reviewData={reviewData}
                 session={session}
                 isFavorite={isFavorite}
                 avgRatingData={avgRatingData}
+                detailData={detailData}
+                relatedVideoData={relatedVideoData}
             ></MovieInfo>
             <div className={styles.container}>
-                <DetailPageRecommendArea
-                    name="이 영화를 본 사용자들의 추천"
-                    movieId={props.params.detailNum}
-                    pathName="recommendations"
-                />
+                <DetailPageRecommendArea name="이 영화를 본 사용자들의 추천" data={recommendData} />
             </div>
         </div>
     );
