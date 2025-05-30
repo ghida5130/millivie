@@ -53,7 +53,7 @@ export default function AddReview({
             setCustomAlertMessage("리뷰 작성 완료");
             setCustomAlert(true);
         } else {
-            console.log("error");
+            console.error("error");
         }
     };
 

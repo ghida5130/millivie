@@ -26,10 +26,6 @@ export default function Login() {
         }
     };
 
-    const credentialsAction = (formData) => {
-        signIn("credentials", formData);
-    };
-
     return (
         <div>
             <div className={styles.loginWrap}>

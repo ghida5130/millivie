@@ -4,7 +4,6 @@ import { auth } from "@/auth";
 export async function POST(request) {
     try {
         const session = await auth();
-        console.log(session?.user);
 
         const body = await request.json();
 
@@ -24,7 +23,6 @@ export async function POST(request) {
             .toArray();
 
         const findReview = await db.collection("average_rating").findOne({ movie_id: body.movie_id });
-        console.log(findReview);
 
         if (findReview) {
             const nowRating = findReview.avgRating;

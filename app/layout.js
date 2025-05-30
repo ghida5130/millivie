@@ -2,9 +2,6 @@ import "./globals.css";
 import NavBar from "./navBar";
 import Footer from "./components/footer";
 import { auth } from "@/auth";
-// import ReduxProvider from "../redux/provider";
-// import { Provider } from "react-redux";
-// import store from "../app/store.js";
 
 export const metadata = {
     title: "밀리비",

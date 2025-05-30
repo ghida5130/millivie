@@ -5,36 +5,49 @@ import MainPageRecentMovies from "./components/mainPageRecentMovies";
 import MainPageRecentlyViewedArea from "./components/mainPageRecentlyViewedArea";
 import { connectDB } from "../util/database";
 import { auth } from "@/auth";
+import { safeFetch } from "@/util/safeFetch";
 
 export default async function Home() {
     let session = await auth();
-    let movieData;
     let topMovieIds = [];
     const maxRank = 5;
     const db = (await connectDB).db("millivie");
 
-    // 영화 Top5 TMDB API 요청
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ko-KR`;
-    const options = {
-        method: "GET",
-        headers: {
-            accept: "application/json",
-        },
-    };
-    try {
-        const res = await fetch(url, options);
-        if (!res.ok) {
-            throw new Error("Network response was not ok");
+    // 최고 평점 영화 데이터 fetch
+    const topRatedData = await safeFetch(
+        "top rated data",
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ko-KR`,
+        {
+            method: "GET",
+            headers: { accept: "application/json" },
         }
-        movieData = await res.json();
-    } catch (error) {
-        console.error("Fetch error:", error);
-        movieData = { error: "failed to fetch data" };
-    }
+    );
+
+    // 트렌드 영화 데이터 fetch
+    const trendData = await safeFetch(
+        "trend data",
+        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ko-KR`,
+        {
+            method: "GET",
+            headers: { accept: "application/json" },
+        }
+    );
+
+    // 개봉예정 영화 데이터 fetch
+    const upcomingData = await safeFetch(
+        "upcoming data",
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_API_KEY}&language=ko-KR`,
+        {
+            method: "GET",
+            headers: { accept: "application/json" },
+        }
+    );
+
     // Top5 영화 id 배열에 저장
     for (let i = 0; i < maxRank; i++) {
-        topMovieIds[i] = String(movieData.results[i].id);
+        topMovieIds[i] = String(trendData.data.results[i].id);
     }
+
     // MongoDB에서 Top5 영화 id를 통해 평균 평점 가져오기
     let avgRatingData = await db
         .collection("average_rating")
@@ -58,15 +71,34 @@ export default async function Home() {
         } else favoriteData = [];
     } else favoriteData = null;
 
+    // 사용자가 즐겨찾기한 영화 데이터 fetch
+    let favoriteDetail = [];
+    if (favoriteData) {
+        const userFavoriteDataFor = async (number) => {
+            const data = await safeFetch(
+                "user favorite data",
+                `https://api.themoviedb.org/3/movie/${number}?api_key=${process.env.TMDB_API_KEY}&language=ko-KR`,
+                {
+                    method: "GET",
+                    headers: { accept: "application/json" },
+                }
+            );
+            return data.data;
+        };
+        const favoriteDataSlice = favoriteData.slice(0, 6);
+        const favoriteDataPromises = favoriteDataSlice.map(userFavoriteDataFor);
+        favoriteDetail = await Promise.all(favoriteDataPromises);
+    }
+
     return (
         <div className={styles.wrap}>
-            <MainPageRecentMovies movieData={movieData} reviewData={reviewData} avgRatingData={avgRatingData} />
+            <MainPageRecentMovies movieData={trendData.data} reviewData={reviewData} avgRatingData={avgRatingData} />
             <div className={styles.container}>
-                <MainPageContentArea name="최고평점" pathName="top_rated" />
-                <MainPageContentArea name="트렌드" pathName="popular" />
-                <UserFavoriteArea name="👤 즐겨찾기 추가 한 영화" favoriteData={favoriteData} />
+                <MainPageContentArea name="최고평점" data={topRatedData.data.results} />
+                <MainPageContentArea name="트렌드" data={trendData.data.results} />
+                <UserFavoriteArea name="👤 즐겨찾기 추가 한 영화" data={favoriteDetail} />
                 <MainPageRecentlyViewedArea name="👤 최근 조회한 영화" />
-                <MainPageContentArea name="개봉 예정" pathName="upcoming" />
+                <MainPageContentArea name="개봉 예정" data={upcomingData.data.results} />
             </div>
         </div>
     );

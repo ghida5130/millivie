@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import UserFavoriteArea from "../components/userFavoriteArea";
 import MainPageRecentlyViewedArea from "../components/mainPageRecentlyViewedArea";
 import { connectDB } from "../../util/database";
+import { safeFetch } from "@/util/safeFetch";
 
 export default async function myPage() {
     let session = await auth();
@@ -18,6 +19,25 @@ export default async function myPage() {
         } else favoriteData = [];
     } else favoriteData = null;
 
+    // 사용자가 즐겨찾기한 영화 데이터 fetch
+    let favoriteDetail = [];
+    if (favoriteData) {
+        const userFavoriteDataFor = async (number) => {
+            const data = await safeFetch(
+                "user favorite data",
+                `https://api.themoviedb.org/3/movie/${number}?api_key=${process.env.TMDB_API_KEY}&language=ko-KR`,
+                {
+                    method: "GET",
+                    headers: { accept: "application/json" },
+                }
+            );
+            return data.data;
+        };
+        const favoriteDataSlice = favoriteData.slice(0, 6);
+        const favoriteDataPromises = favoriteDataSlice.map(userFavoriteDataFor);
+        favoriteDetail = await Promise.all(favoriteDataPromises);
+    }
+
     return (
         <div className={styles.wrap}>
             <div className={styles.mypageWrap}>
@@ -30,7 +50,7 @@ export default async function myPage() {
                 </div>
             </div>
             <div className={styles.contentWrap}>
-                <UserFavoriteArea name="👤 즐겨찾기 추가 한 영화" favoriteData={favoriteData} />
+                <UserFavoriteArea name="👤 즐겨찾기 추가 한 영화" data={favoriteDetail} />
                 <MainPageRecentlyViewedArea name="👤 최근 조회한 영화" />
             </div>
         </div>
