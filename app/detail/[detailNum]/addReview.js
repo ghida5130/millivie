@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import styles from "/styles/detail.module.css";
 import StarRating from "./starRating.js";

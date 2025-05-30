@@ -4,11 +4,10 @@ import UserFavoriteArea from "./components/userFavoriteArea";
 import MainPageRecentMovies from "./components/mainPageRecentMovies";
 import MainPageRecentlyViewedArea from "./components/mainPageRecentlyViewedArea";
 import { connectDB } from "../util/database";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../pages/api/auth/[...nextauth]";
+import { auth } from "@/auth";
 
 export default async function Home() {
-    let session = await getServerSession(authOptions);
+    let session = await auth();
     let movieData;
     let topMovieIds = [];
     const maxRank = 5;

@@ -26,6 +26,10 @@ export default function Login() {
         }
     };
 
+    const credentialsAction = (formData) => {
+        signIn("credentials", formData);
+    };
+
     return (
         <div>
             <div className={styles.loginWrap}>
@@ -38,10 +42,11 @@ export default function Login() {
                     <div className={styles.normalLoginArea}>
                         <form onSubmit={handleSubmit} className={styles.formWrap}>
                             <div>
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="credentials-email">Email</label>
                                 <input
                                     type="email"
-                                    id="email"
+                                    id="credentials-email"
+                                    name="email"
                                     className={styles.inputArea}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -49,10 +54,11 @@ export default function Login() {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="credentials-password">Password</label>
                                 <input
                                     type="password"
-                                    id="password"
+                                    id="credentials-password"
+                                    name="password"
                                     className={styles.inputArea}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}

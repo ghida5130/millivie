@@ -1,13 +1,12 @@
 import Image from "next/image";
 import styles from "/styles/mypage.module.css";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../pages/api/auth/[...nextauth]";
+import { auth } from "@/auth";
 import UserFavoriteArea from "../components/userFavoriteArea";
 import MainPageRecentlyViewedArea from "../components/mainPageRecentlyViewedArea";
 import { connectDB } from "../../util/database";
 
 export default async function myPage() {
-    let session = await getServerSession(authOptions);
+    let session = await auth();
     const db = (await connectDB).db("millivie");
 
     // 즐겨찾기한 영화 리스트 불러오기

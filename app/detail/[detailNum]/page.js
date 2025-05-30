@@ -1,14 +1,13 @@
 import MovieInfo from "./movieInfo.js";
 import { connectDB } from "../../../util/database";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../../pages/api/auth/[...nextauth]";
+import { auth } from "@/auth";
 import styles from "/styles/detail.module.css";
 
 // components
 import DetailPageRecommendArea from "../../components/detailPageRecommendArea.js";
 
 export default async function Detail(props) {
-    let session = await getServerSession(authOptions);
+    let session = await auth();
 
     // movie_id로 현재 영화 리뷰데이터 가져오기
     const db = (await connectDB).db("millivie");

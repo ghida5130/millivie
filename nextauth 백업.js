@@ -6,6 +6,17 @@ import { connectDB } from "../../../util/database";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
+export const { handlers, signIn, signOut, auth } = NextAuth({
+    providers: [Github, Kakao],
+    session: {
+        strategy: "jwt",
+        maxAge: 3 * 60 * 60,
+    },
+    jwt: {
+        maxAge: 3 * 60 * 60,
+    },
+});
+
 export const authOptions = {
     //providers 자리에 구현하고자 하는 oAuth를 집어넣으면 된다.
     providers: [

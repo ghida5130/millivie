@@ -1,8 +1,7 @@
 import "./globals.css";
 import NavBar from "./navBar";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../pages/api/auth/[...nextauth]";
 import Footer from "./components/footer";
+import { auth } from "@/auth";
 // import ReduxProvider from "../redux/provider";
 // import { Provider } from "react-redux";
 // import store from "../app/store.js";
@@ -13,7 +12,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-    let session = await getServerSession(authOptions);
+    let session = await auth();
     return (
         <html lang="en">
             <body>

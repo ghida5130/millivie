@@ -1,8 +1,10 @@
 import { MongoClient } from "mongodb";
 const url =
     "mongodb+srv://ghida5130:qwer1324@cluster0.zerqi58.mongodb.net/millivie?retryWrites=true&w=majority&appName=Cluster0";
-const options = { useNewUrlParser: true };
+const options = {};
 let connectDB;
+
+if (!process.env.MONGODB_URI) throw new Error("please add your Mongo URI to .env");
 
 if (process.env.NODE_ENV === "development") {
     if (!global._mongo) {
