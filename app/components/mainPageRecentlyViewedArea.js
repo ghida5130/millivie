@@ -10,21 +10,26 @@ export default function MainPageRecentlyViewedArea({ name }) {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        const sessionItems = sessionStorage.getItem("recentlyViewed") || [];
-        fetch("/api/itemsDetailData", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ data: sessionItems }),
-        })
-            .then((res) => res.json())
-            .then((result) => {
-                setData(result);
-                setLoading(false);
+        const sessionItems = JSON.parse(sessionStorage.getItem("recentlyViewed")) || [];
+
+        const fetchfor = (number) => {
+            fetch("/api/itemsDetailData", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ data: number }),
             })
-            .catch((err) => {
-                setError(true);
-                console.error(err);
-            });
+                .then((res) => res.json())
+                .then((result) => {
+                    setData((prev) => [...prev, result]);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    setError(true);
+                    console.error(err);
+                });
+        };
+
+        sessionItems.map(fetchfor);
     }, []);
 
     if (loading) return <div>Loading</div>;
