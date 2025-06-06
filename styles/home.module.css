@@ -160,6 +160,22 @@
     font-size: 20px;
 }
 
+.posterArea {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.9) 100%, black);
+    z-index: 0;
+}
+
 /* fade */
 .fadeText {
     opacity: 1;

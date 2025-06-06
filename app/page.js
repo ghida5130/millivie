@@ -3,6 +3,7 @@ import MainPageContentArea from "./components/mainPageContentArea";
 import UserFavoriteArea from "./components/userFavoriteArea";
 import MainPageRecentMovies from "./components/mainPageRecentMovies";
 import MainPageRecentlyViewedArea from "./components/mainPageRecentlyViewedArea";
+import MainPageTopRatedArea from "./components/mainPageTopRatedArea";
 import { connectDB } from "../util/database";
 import { auth } from "@/auth";
 import { safeFetch } from "@/util/safeFetch";
@@ -94,7 +95,7 @@ export default async function Home() {
         <div className={styles.wrap}>
             <MainPageRecentMovies movieData={trendData.data} reviewData={reviewData} avgRatingData={avgRatingData} />
             <div className={styles.container}>
-                <MainPageContentArea name="최고평점" data={topRatedData.data.results} />
+                <MainPageTopRatedArea name="최고평점" data={topRatedData.data.results} />
                 <MainPageContentArea name="트렌드" data={trendData.data.results} />
                 <UserFavoriteArea name="👤 즐겨찾기 추가 한 영화" data={favoriteDetail} />
                 <MainPageRecentlyViewedArea name="👤 최근 조회한 영화" />

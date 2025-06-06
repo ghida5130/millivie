@@ -11,10 +11,6 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
     const [fade, setFade] = useState();
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-    useEffect(() => {
-        setIsImageLoaded(false);
-    }, [topMovieNowNum]);
-
     reviewData = JSON.parse(reviewData);
     avgRatingData = JSON.parse(avgRatingData);
     let currentReviewData = reviewData.filter((review) => review.movie_id == movieData.results[topMovieNowNum].id);
@@ -28,6 +24,7 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
             <div className={styles.header}>
                 <button
                     onClick={() => {
+                        setIsImageLoaded(false);
                         setFade(styles.fadeTextActive);
                         setTimeout(() => {
                             if (topMovieNowNum == 0) {
@@ -64,14 +61,14 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
                                 overflow: "hidden",
                                 height: "100%",
                                 width: "100%",
-                                transition: "all 0.5s ease",
+                                transition: "all 0.3s ease",
                             }}
                         >
                             <Image
                                 src={`https://image.tmdb.org/t/p/w1280${movieData.results[topMovieNowNum].backdrop_path}`}
                                 alt="영화 배경"
                                 fill
-                                onLoadingComplete={() => setIsImageLoaded(true)}
+                                onLoad={() => setIsImageLoaded(true)}
                                 style={{
                                     objectFit: "cover",
                                     transform: `scale(${posterSize})`,
@@ -181,6 +178,7 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
                 </div>
                 <button
                     onClick={() => {
+                        setIsImageLoaded(false);
                         setFade(styles.fadeTextActive);
                         setTimeout(() => {
                             if (topMovieNowNum == 4) {
