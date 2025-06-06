@@ -9,6 +9,12 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
     const [topMovieNowNum, setTopMovieNowNum] = useState(0);
     const [posterSize, setPosterSize] = useState("110%");
     const [fade, setFade] = useState();
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+    useEffect(() => {
+        setIsImageLoaded(false);
+    }, [topMovieNowNum]);
+
     reviewData = JSON.parse(reviewData);
     avgRatingData = JSON.parse(avgRatingData);
     let currentReviewData = reviewData.filter((review) => review.movie_id == movieData.results[topMovieNowNum].id);
@@ -17,21 +23,6 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
     );
     if (currentReviewData.length > 4) currentReviewData = currentReviewData.slice(0, 4);
 
-    const posterImage = {
-        display: "flex",
-        flexDirection: "column",
-        background: `linear-gradient(
-            rgba(0, 0, 0, 0.3) 0%,
-            rgba(0, 0, 0, 0) 50%,
-            rgba(0, 0, 0, 0.9) 100%,black),
-            url("https://image.tmdb.org/t/p/w1280${movieData.results[topMovieNowNum].backdrop_path}")
-            center center/auto ${posterSize}`,
-        height: "100%",
-        width: "100%",
-        padding: "20px",
-        justifyContent: "space-between",
-        transition: "all 0.5s ease",
-    };
     return (
         <div>
             <div className={styles.header}>
@@ -60,22 +51,62 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
                 </button>
                 <div className={styles.topMovieRankWrap}>
                     <Link href={`/detail/${movieData.results[topMovieNowNum].id}`} className={styles.moviePosterLink}>
-                        <div className={styles.moviePosterWrap}>
+                        <div
+                            onMouseOver={() => {
+                                setPosterSize("120%");
+                            }}
+                            onMouseOut={() => {
+                                setPosterSize("110%");
+                            }}
+                            className={`${styles.fadeText} ${fade}`}
+                            style={{
+                                position: "relative",
+                                overflow: "hidden",
+                                height: "100%",
+                                width: "100%",
+                                transition: "all 0.5s ease",
+                            }}
+                        >
+                            <Image
+                                src={`https://image.tmdb.org/t/p/w1280${movieData.results[topMovieNowNum].backdrop_path}`}
+                                alt="영화 배경"
+                                fill
+                                onLoadingComplete={() => setIsImageLoaded(true)}
+                                style={{
+                                    objectFit: "cover",
+                                    transform: `scale(${posterSize})`,
+                                    zIndex: -1,
+                                    opacity: isImageLoaded ? 1 : 0,
+                                    transition: "opacity 0.3s ease, transform 0.5s ease",
+                                }}
+                                priority
+                            />
                             <div
-                                onMouseOver={() => {
-                                    setPosterSize("120%");
+                                style={{
+                                    position: "absolute",
+                                    inset: 0,
+                                    background: `linear-gradient(
+                                                    rgba(0, 0, 0, 0.3) 0%,
+                                                    rgba(0, 0, 0, 0) 50%,
+                                                    rgba(0, 0, 0, 0.9) 100%, black
+                                                )`,
+                                    zIndex: 0,
                                 }}
-                                onMouseOut={() => {
-                                    setPosterSize("110%");
+                            />
+                            <div
+                                style={{
+                                    position: "relative",
+                                    zIndex: 1,
+                                    height: "100%",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "space-between",
+                                    padding: "20px",
                                 }}
-                                style={posterImage}
-                                className={`${styles.fadeText} ${fade}`}
                             >
                                 <div style={{ textAlign: "end" }}>
-                                    {/* <Image src="/medal1.svg" width="80" height="60" alt=""></Image>
-                                    <h4>전체 랭킹 1위</h4> */}
+                                    {/* <Image src="/medal1.svg" width="80" height="60" alt="" /> */}
                                 </div>
-
                                 <div>
                                     <div style={{ fontSize: "50px" }}>{movieData.results[topMovieNowNum].title}</div>
                                     <div style={{ fontSize: "18px" }}>
