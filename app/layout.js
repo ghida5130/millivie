@@ -17,7 +17,6 @@ export default async function RootLayout({ children }) {
                 <NavBar session={session} />
                 <div className="htmlTopMargin"></div>
                 {children}
-                <Footer />
             </body>
         </html>
     );

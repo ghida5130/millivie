@@ -6,6 +6,7 @@ import styles from "/styles/detail.module.css";
 // components
 import DetailPageRecommendArea from "../../components/detailPageRecommendArea.js";
 import { safeFetch } from "../../../util/safeFetch.js";
+import Footer from "../../components/footer.js";
 
 export default async function Detail(props) {
     let session = await auth();
@@ -79,6 +80,7 @@ export default async function Detail(props) {
             <div className={styles.container}>
                 <DetailPageRecommendArea name="이 영화를 본 사용자들의 추천" data={recommendData} />
             </div>
+            <Footer />
         </div>
     );
 }

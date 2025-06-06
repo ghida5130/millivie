@@ -7,6 +7,7 @@ import MainPageTopRatedArea from "./components/mainPageTopRatedArea";
 import { connectDB } from "../util/database";
 import { auth } from "@/auth";
 import { safeFetch } from "@/util/safeFetch";
+import Footer from "./components/footer";
 
 export default async function Home() {
     let session = await auth();
@@ -101,6 +102,7 @@ export default async function Home() {
                 <MainPageRecentlyViewedArea name="👤 최근 조회한 영화" />
                 <MainPageContentArea name="개봉 예정" data={upcomingData.data.results} />
             </div>
+            <Footer />
         </div>
     );
 }

@@ -5,6 +5,7 @@ import UserFavoriteArea from "../components/userFavoriteArea";
 import MainPageRecentlyViewedArea from "../components/mainPageRecentlyViewedArea";
 import { connectDB } from "../../util/database";
 import { safeFetch } from "@/util/safeFetch";
+import Footer from "../components/footer";
 
 export default async function myPage() {
     let session = await auth();
@@ -53,6 +54,7 @@ export default async function myPage() {
                 <UserFavoriteArea name="👤 즐겨찾기 추가 한 영화" data={favoriteDetail} />
                 <MainPageRecentlyViewedArea name="👤 최근 조회한 영화" />
             </div>
+            <Footer />
         </div>
     );
 }
