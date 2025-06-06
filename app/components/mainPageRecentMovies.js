@@ -49,7 +49,14 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
                         }, 400);
                     }}
                 >
-                    <Image src="/arrow.svg" width="70" height="70" alt="" style={{ transform: "scaleX(-1)" }}></Image>
+                    <Image
+                        src="/arrow.svg"
+                        width="70"
+                        height="70"
+                        alt=""
+                        style={{ transform: "scaleX(-1)" }}
+                        priority
+                    />
                 </button>
                 <div className={styles.topMovieRankWrap}>
                     <Link href={`/detail/${movieData.results[topMovieNowNum].id}`} className={styles.moviePosterLink}>
@@ -88,7 +95,8 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
                                     height="20"
                                     style={{ marginLeft: "10px" }}
                                     alt=""
-                                ></Image>
+                                    priority
+                                />
                                 <h3 style={{ marginLeft: "10px" }}>
                                     {currentAvgRatingData.length > 0 ? (
                                         <p>{Math.floor(currentAvgRatingData[0].avgRating * 100) / 100}</p>
@@ -154,7 +162,7 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
                         }, 400);
                     }}
                 >
-                    <Image src="/arrow.svg" width="70" height="70" alt=""></Image>
+                    <Image src="/arrow.svg" width="70" height="70" alt="" priority />
                 </button>
             </div>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px" }}>
@@ -194,7 +202,7 @@ function UserReviewBox(props) {
                 <h5>{props.reviewText}</h5>
             </div>
             <div className={styles.reviewRatingBox}>
-                <Image src="/ratingStar.svg" width="15" height="15" alt=""></Image>
+                <Image src="/ratingStar.svg" width="15" height="15" alt="" priority />
                 <h4 style={{ marginLeft: "5px" }}>{props.reviewRating}</h4>
                 <h5 style={{ marginLeft: "auto" }}>{props.reviewID}</h5>
             </div>
@@ -205,7 +213,7 @@ function UserReviewBox(props) {
 function ReferenceBox({ name, imagePath, movieData, topMovieNowNum }) {
     return (
         <Link href={`/detail/${movieData.results[topMovieNowNum].id}`} className={styles.movieReferenceButton}>
-            <Image src={imagePath} width="50" height="50" alt=""></Image>
+            <Image src={imagePath} width="50" height="50" alt="" priority />
             <p style={{ marginTop: "10px" }}>{name}</p>
         </Link>
     );
