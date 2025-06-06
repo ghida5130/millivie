@@ -162,56 +162,46 @@ export default function MovieInfo({
                         <div className={styles.moviePosterWrap}>
                             <div className={styles.posterImage}>
                                 <PosterImage path={detailData.data.poster_path} />
-                                <div
-                                    style={{
-                                        position: "absolute",
-                                        inset: 0,
-                                        background: `linear-gradient(
-                                                    rgba(0, 0, 0, 0.3) 0%,
-                                                    rgba(0, 0, 0, 0) 50%,
-                                                    rgba(0, 0, 0, 0.9) 100%, black
-                                                )`,
-                                        zIndex: -1,
-                                    }}
-                                />
-                                {session ? (
-                                    nowIsFavorite ? (
-                                        <button
-                                            className={styles.likeBtn}
-                                            onClick={() => {
-                                                removeFavorite();
-                                                setCustomAlertMessage("🖤 즐겨찾기 제거 완료");
-                                                setCustomAlert(true);
-                                            }}
-                                        >
-                                            <Image src="/fullHeart.svg" width="30" height="30" alt="like"></Image>
-                                        </button>
+                                <div className={styles.posterContentArea}>
+                                    {session ? (
+                                        nowIsFavorite ? (
+                                            <button
+                                                className={styles.likeBtn}
+                                                onClick={() => {
+                                                    removeFavorite();
+                                                    setCustomAlertMessage("🖤 즐겨찾기 제거 완료");
+                                                    setCustomAlert(true);
+                                                }}
+                                            >
+                                                <Image src="/fullHeart.svg" width="30" height="30" alt="like"></Image>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className={styles.likeBtn}
+                                                onClick={() => {
+                                                    addFavorite();
+                                                    setCustomAlertMessage("❤️ 즐겨찾기 추가 완료");
+                                                    setCustomAlert(true);
+                                                }}
+                                            >
+                                                <Image src="/emptyHeart.svg" width="30" height="30" alt="like"></Image>
+                                            </button>
+                                        )
                                     ) : (
                                         <button
                                             className={styles.likeBtn}
                                             onClick={() => {
-                                                addFavorite();
-                                                setCustomAlertMessage("❤️ 즐겨찾기 추가 완료");
+                                                setCustomAlertMessage("⚠️ 로그인이 필요합니다");
                                                 setCustomAlert(true);
                                             }}
                                         >
                                             <Image src="/emptyHeart.svg" width="30" height="30" alt="like"></Image>
                                         </button>
-                                    )
-                                ) : (
-                                    <button
-                                        className={styles.likeBtn}
-                                        onClick={() => {
-                                            setCustomAlertMessage("⚠️ 로그인이 필요합니다");
-                                            setCustomAlert(true);
-                                        }}
-                                    >
-                                        <Image src="/emptyHeart.svg" width="30" height="30" alt="like"></Image>
-                                    </button>
-                                )}
+                                    )}
 
-                                <div style={{ fontSize: "50px" }}>{detailData.data.title}</div>
-                                <div style={{ fontSize: "18px" }}>{detailData.data.original_title}</div>
+                                    <div style={{ fontSize: "50px" }}>{detailData.data.title}</div>
+                                    <div style={{ fontSize: "18px" }}>{detailData.data.original_title}</div>
+                                </div>
                             </div>
                         </div>
                         <div className={styles.movieInfoWrap}>

@@ -28,7 +28,6 @@
 }
 
 .moviePosterWrap {
-    position: relative;
     width: 30%;
     height: 500px;
 }
@@ -103,12 +102,27 @@
 }
 
 .posterImage {
-    display: flex;
-    flex-direction: column;
+    position: relative;
     height: 100%;
     width: 100%;
+    display: flex;
+}
+
+.posterContentArea {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
     padding: 20px;
-    /* justify-content: flex-end; */
+    justify-content: flex-end;
+    z-index: 9999;
+}
+
+.posterImageWrap {
+    position: relative;
+    height: 500px;
+    width: 405px;
 }
 .likeBtn {
     align-self: flex-end;
