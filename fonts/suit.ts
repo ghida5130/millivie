@@ -14,7 +14,7 @@ export const suit = localFont({
             style: "normal",
         },
         {
-            path: "./SUIT-Semibold.woff2",
+            path: "./SUIT-SemiBold.woff2",
             weight: "600",
             style: "normal",
         },
