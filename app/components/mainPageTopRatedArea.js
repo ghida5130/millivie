@@ -12,7 +12,7 @@ export default function MainPageTopRatedArea({ name, data }) {
                         <div className={styles.posterArea}>
                             <Image
                                 src={`https://image.tmdb.org/t/p/w342${a.poster_path}`}
-                                alt={a.title}
+                                alt={"top rated movies : " + a.title}
                                 fill
                                 style={{ objectFit: "cover", zIndex: -1 }}
                                 priority

@@ -53,6 +53,7 @@ export default function NavBar({ session }) {
                                 onMouseOver={() => {
                                     setNavBarOver(false);
                                 }}
+                                aria-label="홈 버튼"
                             >
                                 <Image src="/millivieIcon.svg" width="20" height="20" alt=""></Image>
                                 Millivie
@@ -107,8 +108,8 @@ export default function NavBar({ session }) {
                                 onFocus={() => setSearchPlaceHolder("")}
                                 onBlur={() => setSearchPlaceHolder("영화 검색")}
                             ></input>
-                            <button type="submit" style={{ height: "20px" }}>
-                                <Image src="/searchIcon.svg" width="20" height="20" alt=""></Image>
+                            <button type="submit" style={{ height: "20px" }} aria-label="검색">
+                                <Image src="/searchIcon.svg" width="20" height="20" alt="검색"></Image>
                             </button>
                         </form>
                     </div>
@@ -121,7 +122,7 @@ export default function NavBar({ session }) {
                             href={!session ? "/login" : "/mypage"}
                             style={{ cursor: "pointer" }}
                         >
-                            <Image src="/userIcon.svg" width="33" height="33" alt=""></Image>
+                            <Image src="/userIcon.svg" width="33" height="33" alt="마이페이지"></Image>
                         </Link>
                     </div>
                     <div className={`${styles.innerWrap} ${navBarOver ? styles.innerWrapOver : ""}`}>
@@ -186,9 +187,9 @@ function NavBarIcon(props) {
 
 function InnerIcon(props) {
     return (
-        <a style={{ fontSize: props.fontSize }} className={styles.innerIcon}>
+        <div style={{ fontSize: props.fontSize, cursor: "pointer" }} className={styles.innerIcon}>
             {props.name}
-        </a>
+        </div>
     );
 }
 

@@ -36,12 +36,13 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
                             setFade();
                         }, 400);
                     }}
+                    aria-label="이전 영화"
                 >
                     <Image
                         src="/arrow.svg"
                         width="70"
                         height="70"
-                        alt=""
+                        alt="이전영화"
                         style={{ transform: "scaleX(-1)" }}
                         priority
                     />
@@ -190,8 +191,9 @@ export default function MainPageRecentMovies({ movieData, reviewData, avgRatingD
                             setFade();
                         }, 400);
                     }}
+                    aria-label="다음 영화"
                 >
-                    <Image src="/arrow.svg" width="70" height="70" alt="" priority />
+                    <Image src="/arrow.svg" width="70" height="70" alt="다음 영화" priority />
                 </button>
             </div>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px" }}>
@@ -228,12 +230,12 @@ function UserReviewBox(props) {
     return (
         <div className={styles.reviewBox}>
             <div className={styles.reviewTextBox}>
-                <h5>{props.reviewText}</h5>
+                <p style={{ fontSize: "13px" }}>{props.reviewText}</p>
             </div>
             <div className={styles.reviewRatingBox}>
                 <Image src="/ratingStar.svg" width="15" height="15" alt="" priority />
-                <h4 style={{ marginLeft: "5px" }}>{props.reviewRating}</h4>
-                <h5 style={{ marginLeft: "auto" }}>{props.reviewID}</h5>
+                <p style={{ marginLeft: "5px", fontSize: "16px" }}>{props.reviewRating}</p>
+                <p style={{ marginLeft: "auto", fontSize: "13px" }}>{props.reviewID}</p>
             </div>
         </div>
     );

@@ -95,7 +95,7 @@ export default function MovieInfo({
     const headerBackground = {
         position: "fixed",
         top: "0",
-        backgroundImage: `url("https://image.tmdb.org/t/p/w1280${detailData.data.poster_path}")`,
+        backgroundImage: `url("https://image.tmdb.org/t/p/w500${detailData.data.poster_path}")`,
         backgroundSize: "cover",
         backgroundPosition: "center center",
         opacity: "0.4",
@@ -103,15 +103,6 @@ export default function MovieInfo({
         height: "100vh",
         filter: "blur(35px)",
         zIndex: "-1",
-    };
-
-    const posterImageBackground = {
-        background: `linear-gradient(
-            rgba(0, 0, 0, 0.3) 0%,
-            rgba(0, 0, 0, 0) 50%,
-            rgba(0, 0, 0, 0.9) 100%,black),
-            url("https://image.tmdb.org/t/p/w1280${detailData.data.poster_path}")
-            center center/cover`,
     };
 
     const addFavorite = async () => {

@@ -21,7 +21,7 @@ export default function MainPageContentArea({ name, data }) {
                         >
                             <Image
                                 src={`https://image.tmdb.org/t/p/w342${a.poster_path}`}
-                                alt={a.title}
+                                alt={"content" + a.title}
                                 fill
                                 style={{ objectFit: "cover", zIndex: -1 }}
                             />
