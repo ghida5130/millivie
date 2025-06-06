@@ -7,6 +7,10 @@ import AddReview from "./addReview";
 import CustomAlert from "../../components/customAlert";
 import * as clm from "country-locale-map";
 
+import dynamic from "next/dynamic";
+
+const PosterImage = dynamic(() => import("./posterImage"), { ssr: true });
+
 export default function MovieInfo({
     detailNum,
     reviewData,
@@ -157,17 +161,7 @@ export default function MovieInfo({
                     <div className={styles.topMovieRankWrap}>
                         <div className={styles.moviePosterWrap}>
                             <div className={styles.posterImage}>
-                                <Image
-                                    src={`https://image.tmdb.org/t/p/w1280${detailData.data.poster_path}`}
-                                    alt="영화 포스터"
-                                    fill
-                                    style={{
-                                        objectFit: "cover",
-                                        zIndex: -1,
-                                    }}
-                                    priority
-                                    fetchPriority="high"
-                                />
+                                <PosterImage path={detailData.data.poster_path} />
                                 <div
                                     style={{
                                         position: "absolute",
