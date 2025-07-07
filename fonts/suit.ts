@@ -1,4 +1,3 @@
-// app/fonts/suit.ts
 import localFont from "next/font/local";
 
 export const suit = localFont({

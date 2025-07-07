@@ -2,11 +2,16 @@ import MovieInfo from "./movieInfo.js";
 import { connectDB } from "../../../util/database";
 import { auth } from "@/auth";
 import styles from "/styles/detail.module.css";
+import dynamic from "next/dynamic";
+import Head from "next/head";
 
 // components
-import DetailPageRecommendArea from "../../components/detailPageRecommendArea.js";
 import { safeFetch } from "../../../util/safeFetch.js";
 import Footer from "../../components/footer.js";
+
+const DetailPageRecommendArea = dynamic(() => import("../../components/detailPageRecommendArea"), {
+    ssr: false,
+});
 
 export default async function Detail(props) {
     let session = await auth();
@@ -68,6 +73,9 @@ export default async function Detail(props) {
 
     return (
         <div>
+            <Head>
+                <meta name="robots" content="nofollow" />
+            </Head>
             <MovieInfo
                 detailNum={props.params.detailNum}
                 reviewData={reviewData}

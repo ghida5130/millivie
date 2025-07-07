@@ -1,6 +1,5 @@
 import "./globals.css";
 import NavBar from "./navBar";
-import Footer from "./components/footer";
 import { auth } from "@/auth";
 import { suit } from "@/fonts/suit";
 

@@ -187,9 +187,9 @@ function NavBarIcon(props) {
 
 function InnerIcon(props) {
     return (
-        <div style={{ fontSize: props.fontSize, cursor: "pointer" }} className={styles.innerIcon}>
+        <button style={{ fontSize: props.fontSize }} className={styles.innerIcon}>
             {props.name}
-        </div>
+        </button>
     );
 }
 

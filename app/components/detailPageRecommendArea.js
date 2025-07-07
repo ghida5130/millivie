@@ -27,6 +27,7 @@ export default function MainPageContentArea({ name, data }) {
                         return (
                             <Link
                                 href={`/detail/${val.id}`}
+                                rel="nofollow"
                                 style={{
                                     background: `linear-gradient(
                                             rgba(0, 0, 0, 0.2) 0%,
