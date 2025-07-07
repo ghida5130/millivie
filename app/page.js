@@ -9,6 +9,8 @@ import { auth } from "@/auth";
 import { safeFetch } from "@/util/safeFetch";
 import Footer from "./components/footer";
 
+export const revalidate = 3600;
+
 export default async function Home() {
     let session = await auth();
     let topMovieIds = [];
